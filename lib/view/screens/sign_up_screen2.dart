@@ -1,17 +1,18 @@
-import 'dart:developer';
-
 import 'package:auth_screen/consts/app_constants.dart';
 import 'package:auth_screen/controller/sign_in_screen1_controller.dart';
-import 'package:auth_screen/view/screens/sign_up_screen2.dart';
+import 'package:auth_screen/view/screens/sign_up_screen1.dart';
+import 'package:auth_screen/view/widgets/otp_textformfield.dart';
 import 'package:auth_screen/view/widgets/text_formfield.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../controller/sign_in_screen2_controller.dart';
 import '../widgets/rich_text_widget.dart';
 
-class SignUpScreen1 extends StatelessWidget {
-  SignUpScreen1({super.key});
+class SignUpScreen2 extends StatelessWidget {
+  SignUpScreen2({super.key});
+  final singninScreen2Controller = Get.put(SigninScreen2Controller());
   final singninScreen1Controller = Get.put(SigninScrren1Controller());
 
   @override
@@ -21,9 +22,9 @@ class SignUpScreen1 extends StatelessWidget {
         padding: EdgeInsets.only(
             top: AppConstants.height(context) * 0.09,
             left: AppConstants.width(context) * 0.12,right: AppConstants.width(context) * 0.12),
-        child: SingleChildScrollView(
-          child: Form(
-            key: singninScreen1Controller.formKey,
+        child: Form(
+          key: singninScreen1Controller.formKey,
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -39,17 +40,17 @@ class SignUpScreen1 extends StatelessWidget {
                 ),
                 TextFormFieldWidget(
                   hintText: 'Company ID',
-                  controller: singninScreen1Controller.comapanyIdController,
+                  controller: singninScreen2Controller.comapanyIdController,
                   validator: (value) {
-                    singninScreen1Controller.copanyIdvalidator(value);
+                    singninScreen2Controller.copanyIdvalidator(value);
                     return null;
                   },
                 ),
                 TextFormFieldWidget(
                   hintText: 'Phone Number',
-                  controller: singninScreen1Controller.phoneNumberController,
+                  controller: singninScreen2Controller.phoneNumberController,
                   validator: (value) {
-                    singninScreen1Controller.phoneNumberValidator(value);
+                    singninScreen2Controller.phoneNumberValidator(value);
                     return null;
                   },
                   prefixIcon: const Row(
@@ -72,73 +73,79 @@ class SignUpScreen1 extends StatelessWidget {
                     ],
                   ),
                 ),
+                OtpTextFormFieldWidget(
+                  hintText: 'Verify',
+                  controller: singninScreen2Controller.otpcontroller,
+                  validator: (value) {}, htext: 'Enter OTP',
+                ),
                 TextFormFieldWidget(
                   hintText: 'Industry',
                   validator: (value) {
-                    singninScreen1Controller.industryvalidator(value);
+                    singninScreen2Controller.industryvalidator(value);
                     return null;
                   },
                   suffixIcon: IconButton(
                     onPressed: () {},
                     icon: const Icon(Icons.arrow_drop_down),
                   ),
-                  controller: singninScreen1Controller.industryController,
+                  controller: singninScreen2Controller.industryController,
                 ),
                 TextFormFieldWidget(
                   hintText: 'Password',
                   validator: (value) {
-                    singninScreen1Controller.passwordValidator(value);
+                    singninScreen2Controller.passwordValidator(value);
                     return null;
                   },
-                  obscureText: singninScreen1Controller.isobscurePassword.value,
+                  obscureText: singninScreen2Controller.isobscurePassword.value,
                   prefixIcon: const Icon(
                     Icons.lock,
                     color: Colors.black,
                   ),
                   suffixIcon: IconButton(
                     onPressed: () {
-                      singninScreen1Controller.isobscurePassword.value =
-                          !singninScreen1Controller.isobscurePassword.value;
+                      singninScreen2Controller.isobscurePassword.value =
+                          !singninScreen2Controller.isobscurePassword.value;
                     },
-                    icon: Icon(singninScreen1Controller.isobscurePassword.value
+                    icon: Icon(singninScreen2Controller.isobscurePassword.value
                         ? Icons.visibility_off
                         : Icons.visibility),
                   ),
-                  controller: singninScreen1Controller.passwordController,
+                  controller: singninScreen2Controller.passwordController,
                 ),
                 Obx(
                   () => TextFormFieldWidget(
                     hintText: 'Confirm Password',
                     validator: (validator) {
-                      singninScreen1Controller
+                      singninScreen2Controller
                           .confirmPasswordValidator(validator);
                       return null;
                     },
                     obscureText:
-                        singninScreen1Controller.isobscureConfirmPassword.value,
+                        singninScreen2Controller.isobscureConfirmPassword.value,
                     prefixIcon: const Icon(
                       Icons.lock,
                       color: Colors.black,
                     ),
                     suffixIcon: IconButton(
                       onPressed: () {
-                        singninScreen1Controller
+                        singninScreen2Controller
                                 .isobscureConfirmPassword.value =
-                            !singninScreen1Controller
+                            !singninScreen2Controller
                                 .isobscureConfirmPassword.value;
                       },
-                      icon: Icon(singninScreen1Controller
+                      icon: Icon(singninScreen2Controller
                               .isobscureConfirmPassword.value
                           ? Icons.visibility_off
                           : Icons.visibility),
                     ),
                     controller:
-                        singninScreen1Controller.confirmPasswordController,
+                        singninScreen2Controller.confirmPasswordController,
                   ),
                 ),
                 SizedBox(
                   height: AppConstants.height(context) * 0.03,
                 ),
+                
                 SizedBox(
                   width: AppConstants.width(context) * 0.8,
                   child: ElevatedButton(
@@ -154,9 +161,9 @@ class SignUpScreen1 extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      log('message');
-                      singninScreen1Controller.buttonclickValidator();
-                      Get.to(()=>SignUpScreen2());
+                      
+                      singninScreen2Controller.buttonclickValidator();
+                      Get.to(()=>SignUpScreen1());
                     },
                     child: const Text(
                       'Signin',

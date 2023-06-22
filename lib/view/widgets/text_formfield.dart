@@ -1,8 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-
 import 'package:auth_screen/consts/app_constants.dart';
 
+// ignore: must_be_immutable
 class TextFormFieldWidget extends StatelessWidget {
   TextFormFieldWidget({
     Key? key,
@@ -10,7 +9,8 @@ class TextFormFieldWidget extends StatelessWidget {
     required this.hintText,
     required this.controller,
     this.suffixIcon,
-    this.obscureText, required Null Function(dynamic value) validator,
+    this.obscureText,
+    required Null Function(dynamic value) validator,
   }) : super(key: key);
 
   final Widget? prefixIcon;
@@ -35,16 +35,15 @@ class TextFormFieldWidget extends StatelessWidget {
           child: TextFormField(
             controller: controller,
             scrollPadding: EdgeInsets.zero,
-            obscureText: obscureText??false,
+            obscureText: obscureText ?? false,
             validator: validator,
             decoration: InputDecoration(
-              
-              
               suffixIcon: suffixIcon,
               prefixIcon: prefixIcon,
               border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Colors.black),),
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(color: Colors.black),
+              ),
             ),
           ),
         ),

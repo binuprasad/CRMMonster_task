@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AppConstants {
+   static const height5= SizedBox(
+    height: 5,
+  );
   static const height10 = SizedBox(
     height: 10,
   );
